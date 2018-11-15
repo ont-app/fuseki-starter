@@ -1,0 +1,79 @@
+@prefix :        <#> .
+@prefix fuseki:  <http://jena.apache.org/fuseki#> .
+@prefix rdf:     <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs:   <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix tdb:     <http://jena.hpl.hp.com/2008/tdb#> .
+@prefix ja:      <http://jena.hpl.hp.com/2005/11/Assembler#> .
+
+<http://jena.hpl.hp.com/2005/11/Assembler#>
+    :definedAt <https://github.com/apache/jena/blob/master/jena-core/src/main/resources/org/apache/jena/vocabulary/assembler.ttl>;
+    :documentedAt <http://jena.apache.org/documentation/assembler/assembler.ttl>;
+    :documentedAt <http://jena.apache.org/documentation/assembler/assembler-howto.html>. 
+<http://jena.hpl.hp.com/2008/tdb#> 
+    :documentedAt <http://jena.apache.org/documentation/tdb/assembler.html>.
+
+[] rdf:type fuseki:Server ;
+   rdfs:comment """
+        This is the top-level construct for a fuseki server running on some port.
+        Default port is 3030.
+        It provides two services, both in-memory.
+        <dataset-1> is a simple model with no inferencing.
+        <owl-dataset> invokes an OWL reasoner.
+   """;
+   ja:context [ ja:cxtName "arq:queryTimeout" ;  ja:cxtValue "300000" ] ;
+   fuseki:services (
+     <#dataset-1>
+     <#owl-dataset>
+   ) 
+.
+
+
+# DATASET-1
+<#dataset-1> rdf:type fuseki:Service;
+    fuseki:name                        "dataset-1" ; 
+    fuseki:serviceQuery                "sparql" ;
+    fuseki:serviceQuery                "query" ;
+    fuseki:serviceUpdate               "update" ;
+    fuseki:serviceUpload               "upload" ;
+    fuseki:serviceReadWriteGraphStore  "data" ;     
+    fuseki:serviceReadGraphStore       "get" ;
+    fuseki:dataset                     :DS_dataset-1;
+.
+
+:DS_dataset-1 rdf:type ja:RDFDataset ;
+    rdfs:label "dataset-1 dataset";
+    rdfs:comment """
+        A dataset with a basic memory model.
+        """;
+    ja:defaultGraph [rdfs:label "dataset-1";
+    		     a ja:MemoryModel;
+		     ];
+.
+
+# OWL-DATASET
+<#owl-dataset> rdf:type fuseki:Service;
+    rdfs:comment """
+    This has an owl reasoner enabled.
+    """;
+    fuseki:name                        "owl-dataset" ; 
+    fuseki:serviceQuery                "sparql" ;
+    fuseki:serviceQuery                "query" ;
+    fuseki:serviceUpdate               "update" ;
+    fuseki:serviceUpload               "upload" ;
+    fuseki:serviceReadWriteGraphStore  "data" ;     
+    fuseki:serviceReadGraphStore       "get" ;
+    fuseki:dataset                     :DS_owl-dataset;
+.
+
+:DS_owl-dataset rdf:type ja:RDFDataset ;
+    rdfs:label "owl-dataset dataset";
+    rdfs:comment """
+        A dataset whose model is an OWL-inferencer
+        """;
+    ja:defaultGraph :M_owl-dataset;
+.
+
+:M_owl-dataset a ja:InfModel;
+   rdfs:label "owl-dataset's inference model";
+   ja:reasoner [ja:reasonerURL <http://jena.hpl.hp.com/2003/OWLFBRuleReasoner>];
+   .
