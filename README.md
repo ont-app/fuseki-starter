@@ -23,7 +23,7 @@ The default values should work fine (I chose an Ubuntu image), until you get to 
 then press the 'review and launch' button.
 
 I'm working from an ubuntu machine. I keep an entry like this in my
-  .ssh/config file:
+  .ssh/[config file](https://www.ssh.com/ssh/config/):
   
 ```
 Host fuseki-1 
@@ -32,8 +32,8 @@ Host fuseki-1
   IdentityFile /path/to/aws_key_pair.pem
 ```
 
-...where `ec2-yadda-yadda.amazonaws.com` is the value of the Public DNS
-column on your AWS instances console
+...where `ec2-yadda-yadda.amazonaws.com` is the value of the [Public DNS
+column](https://docs.aws.amazon.com/vpc/latest/userguide/vpc-dns.html#vpc-dns-viewing) on your AWS instances console
 
 This allows me to log in to a remote secure shell on the server from my local linux computer using
 
@@ -43,7 +43,6 @@ $ ssh fuseki-1
 No doubt you can do something similar on Windows or Apple.
 
 Using the above command should bring you into a secure shell that looks like this:
-
 ```
 $ ll
 total 32
@@ -55,17 +54,13 @@ drwx------ 2 ubuntu ubuntu 4096 Nov 15 18:31 .cache/
 drwx------ 3 ubuntu ubuntu 4096 Nov 15 18:31 .gnupg/
 -rw-r--r-- 1 ubuntu ubuntu  807 Apr  4  2018 .profile
 drwx------ 2 ubuntu ubuntu 4096 Nov 15 17:54 .ssh/
-
 ```
 
-Java in not installed yet, so...
+Java is not installed yet, so...
 
 ```
-
 $ sudo apt-get update
-
 $ sudo apt-get install openjdk-8-jdk
-
 $ java -version
 
 openjdk version "1.8.0_181"
@@ -77,17 +72,6 @@ OpenJDK 64-Bit Server VM (build 25.181-b13, mixed mode)
 
 This section picks up from the point we left off in the previous section, but it should apply to Linux systems generally. 
 
-I also assume that java has been installed...
-
-```
-$ java -version
-
-openjdk version "1.8.0_181"
-OpenJDK Runtime Environment (build 1.8.0_181-8u181-b13-1ubuntu0.18.04.1-b13)
-OpenJDK 64-Bit Server VM (build 25.181-b13, mixed mode)
-``` 
-
-
 From here we want to follow [the Fuseki installation doc](https://jena.apache.org/documentation/fuseki2/).
 
 I'll install fuseki in a directory called `~/opt`:
@@ -97,22 +81,17 @@ $ mkdir opt
 $ cd opt
 $ mkdir fuseki
 $ cd fuseki
-
 $ wget http://mirror.reverse.net/pub/apache/jena/binaries/apache-jena-fuseki-3.9.0.tar.gz
-
 $ tar -xvzf apache-jena-fuseki-3.9.0.tar.gz
 $ rm apache-jena-fuseki-3.9.0.tar.gz
 $ cd apache-jena-fuseki-3.9.0
 # For convenience, we set an environment variable....
-$ EXPORT FUSEKI_BASE=$(pwd)
-
+$ export FUSEKI_BASE=$(pwd)
 ```
 
 The current version as of this writing.
 
 Henceforth I'll call the directory into which you unpacked this code as $FUSEKI_BASE. You may find it convenient declare an enviroment variable to that effect.
-
-
 
 The $FUSEKI_BASE directory should look like this...
 
@@ -133,14 +112,12 @@ drwxrwxr-x 2 ubuntu ubuntu     4096 Nov 15 18:42 bin/
 -rw-r--r-- 1 ubuntu ubuntu     2217 Sep 28 17:15 fuseki.service
 -rw-r--r-- 1 ubuntu ubuntu 23307303 Sep 28 17:30 fuseki.war
 drwxr-xr-x 8 ubuntu ubuntu     4096 Sep 28 17:15 webapp/
-
 ```
 
 You should now be able to invoke the server...
 
 ```
 $ ./fuseki-server
-
 ```
 Going to your public IP and specifying port 3030:
 
@@ -185,7 +162,7 @@ We can declare datasets in Fuseki with a configuration file written in Turtle ma
 https://jena.apache.org/documentation/fuseki2/fuseki-configuration.html
 
 
-This github repo has a little starter config file that should get us started.
+This github repo has a [little starter config file](https://github.com/ont-app/fuseki-starter/blob/master/fuseki-config.ttl) that should get the ball rolling.
 
 ```
 $ cd $FUSEKI_HOME
@@ -201,5 +178,5 @@ Now we should be able to invoke the fuseki server:
 $ ./fuseki-server --config config/fuseki-config.ttl 
 ```
 
-Navigating to `http://ec2-yadda-yadda.amazonaws.com:3030` should now prompt you for a user name and password, and you're off to the races.
+Navigating to `http://ec2-yadda-yadda.amazonaws.com:3030` should now prompt you for a user name and password, and you're off to the races. 
 
