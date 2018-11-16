@@ -74,7 +74,7 @@ This section picks up from the point we left off in the previous section, but it
 
 From here we want to follow [the Fuseki installation doc](https://jena.apache.org/documentation/fuseki2/).
 
-I'll install fuseki in a directory called `~/opt`:
+I'll install fuseki in a directory called `~/opt/fuseki`:
 
 ```
 $ mkdir opt
