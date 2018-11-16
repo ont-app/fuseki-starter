@@ -157,7 +157,7 @@ Add this to require basic authentication for your user:
 
 ### Configuring Fuseki
 
-We can declare datasets in Fuseki with a configuration file written in Turtle making use of Jena's assembler RDF vocabulary.
+We can declare datasets in Fuseki with a configuration file written in Turtle making use of [Jena's assembler RDF vocabulary](http://jena.apache.org/documentation/assembler/assembler-howto.html).
 
 https://jena.apache.org/documentation/fuseki2/fuseki-configuration.html
 
