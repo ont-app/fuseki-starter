@@ -128,11 +128,7 @@ with it yet because we don't have any datasets, and we haven't configured authen
 
 ### Configure Authentication in with Shiro
 
-Fuseki's authentication is done with [Apache Shiro](https://en.wikipedia.org/wiki/Apache_Shiro). To configure, we edit
-
-```
-$FUSEKI_BASE/run/shiro.ini
-```
+Fuseki's authentication is done with [Apache Shiro](https://en.wikipedia.org/wiki/Apache_Shiro). To configure, we edit `$FUSEKI_BASE/run/shiro.ini`.
 
 The file comes pre-configured with a user called 'admin', whose password is 'pw'
 
