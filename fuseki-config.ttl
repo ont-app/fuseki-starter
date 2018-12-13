@@ -24,6 +24,7 @@
    fuseki:services (
      <#dataset-1>
      <#owl-dataset>
+     # <#persistent> TODO: specify path and comment in below
    ) 
 .
 
@@ -77,3 +78,32 @@
    rdfs:label "owl-dataset's inference model";
    ja:reasoner [ja:reasonerURL <http://jena.hpl.hp.com/2003/OWLFBRuleReasoner>];
    .
+
+
+
+
+# PERSISTENT DATASET
+
+    [] ja:loadClass "org.apache.jena.tdb.TDB".
+    tdb:DatasetTDB rdfs:subClassOf ja:RDFDataset.
+    tdb:GraphTDB rdfs:subClassOf ja:Model.
+
+
+# <#persistent> rdf:type fuseki:Service;
+#     fuseki:name                        "persistent" ; 
+#     fuseki:serviceQuery                "sparql" ;
+#     fuseki:serviceQuery                "query" ;
+#     fuseki:serviceUpdate               "update" ;
+#     fuseki:serviceUpload               "upload" ;
+#     fuseki:serviceReadWriteGraphStore  "data" ;     
+#     fuseki:serviceReadGraphStore       "get" ;
+#     fuseki:dataset                     :DS_persistent;
+#     .
+  
+#     :DS_persistent rdf:type tdb:DatasetTDB;
+#     rdfs:label "persistent dataset";
+#     rdfs:comment """
+#         A dataset persisted at TODO:SPECIFY PATH
+#         """;
+#     tdb:location "TODO:SPECIFY PATH";
+#     .
